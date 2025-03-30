@@ -1,4 +1,4 @@
-module github.com/farseer-go/clickhouse-go
+module github.com/farseer-go/clickhouse-go/V2
 
 go 1.22.0
 
