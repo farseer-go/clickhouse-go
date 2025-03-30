@@ -201,6 +201,17 @@ func (col *Decimal) AppendRow(v any) error {
 		if v != nil {
 			value = *v
 		}
+	case string:
+		val, err := decimal.NewFromString(v)
+		if err != nil {
+			return &ColumnConverterError{
+				Op:   "AppendRow",
+				To:   string(col.chType),
+				From: fmt.Sprintf("%T", v),
+				Hint: "could not get driver.Valuer value",
+			}
+		}
+		value = val
 	case nil:
 	default:
 		if valuer, ok := v.(driver.Valuer); ok {
